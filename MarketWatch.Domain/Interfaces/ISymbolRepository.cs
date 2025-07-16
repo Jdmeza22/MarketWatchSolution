@@ -3,7 +3,19 @@ namespace MarketWatch.Domain.Interfaces;
 
 public interface ISymbolRepository
 {
-    Task<IEnumerable<string>> GetPublicSymbolsAsync(); 
-    Task<IEnumerable<string>> GetStoredSymbolsAsync(); 
+    /// <summary>
+    /// Method to get public symbols from Binance API.
+    /// </summary>
+    /// <returns>Symbols list</returns>
+    Task<IEnumerable<string>> GetPublicSymbolsAsync();
+
+    /// <summary>
+    /// Method to get stored symbols from the database.
+    /// </summary>
+    Task<IEnumerable<string>> GetStoredSymbolsAsync();
+
+    /// <summary>
+    /// Method to add a symbol to the database.
+    /// </summary>
     Task AddSymbolAsync(string name);
 }

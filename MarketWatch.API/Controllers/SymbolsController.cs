@@ -14,8 +14,16 @@ namespace MarketWatch.API.Controllers
         [HttpGet("public-symbols")]
         public async Task<IActionResult> GetPublicSymbols()
         {
-            var symbols = await service.GetPublicSymbolsAsync();
-            return Ok(new { symbols });
+            try
+            {
+                var symbols = await service.GetPublicSymbolsAsync();
+                return Ok(new { symbols });
+            }
+            catch (Exception ex)
+            {
+                // TODO: log the exception
+                return StatusCode(500, new { message = "An error occurred while retrieving public symbols.", detail = ex.Message });
+            }
         }
 
         /// <summary>
@@ -24,8 +32,16 @@ namespace MarketWatch.API.Controllers
         [HttpGet("market-watch")]
         public async Task<IActionResult> GetStoredSymbols()
         {
-            var symbols = await service.GetStoredSymbolsAsync();
-            return Ok(new { symbols });
+            try
+            {
+                var symbols = await service.GetStoredSymbolsAsync();
+                return Ok(new { symbols });
+            }
+            catch (Exception ex)
+            {
+                // TODO: log the exception
+                return StatusCode(500, new { message = "An error occurred while retrieving stored symbols.", detail = ex.Message });
+            }
         }
 
         /// <summary>
@@ -35,9 +51,17 @@ namespace MarketWatch.API.Controllers
         [HttpPost("market-watch")]
         public async Task<IActionResult> AddSymbol([FromBody] string name)
         {
-            await service.AddSymbolAsync(name);
-            return Ok();
+            try
+            {
+                await service.AddSymbolAsync(name);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // TODO: log the exception
+                return StatusCode(500, new { message = "An error occurred while adding the symbol.", detail = ex.Message });
+            }
         }
     }
 
-}
+ }

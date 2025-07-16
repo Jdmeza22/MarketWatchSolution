@@ -10,6 +10,9 @@ public class MarketWatchDbContext : DbContext
 
     public DbSet<Symbol> Symbols => Set<Symbol>();
 
+    /// <summary>
+    /// Method to configure the model for the database.
+    /// </summary>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Symbol>(entity =>
