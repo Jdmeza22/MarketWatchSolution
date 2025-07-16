@@ -1,11 +1,13 @@
 ﻿using MarketWatch.Application.UseCases;
 using MarketWatch.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketWatch.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize] // TODO : Uncomment this line to enable authorization
     public class SymbolsController(SymbolService service) : ControllerBase
     {
         /// <summary>
@@ -18,7 +20,7 @@ namespace MarketWatch.API.Controllers
             try
             {
                 var symbols = await service.GetPublicSymbolsAsync();
-                return Ok(new { symbols });
+                return Ok(symbols);
             }
             catch (Exception ex)
             {
@@ -36,7 +38,7 @@ namespace MarketWatch.API.Controllers
             try
             {
                 var symbols = await service.GetStoredSymbolsAsync();
-                return Ok(new { symbols });
+                return Ok(symbols);
             }
             catch (Exception ex)
             {
@@ -45,6 +47,7 @@ namespace MarketWatch.API.Controllers
             }
         }
 
+        //TODO jmeza : Implement oject model for symbol instead of string
         /// <summary>
         /// Method to add a symbol to the market watch list.
         /// </summary>
