@@ -16,6 +16,13 @@ public interface ISymbolRepository
 
     /// <summary>
     /// Method to add a symbol to the database.
+    /// param name="symbolName">Symbol name to add</param>
     /// </summary>
-    Task AddSymbolAsync(string name);
+    Task AddSymbolAsync(string symbolName);
+
+    /// <summary>
+    /// Method to delete a symbol to the database.
+    /// param name="symbolName">Symbol name to delete</param>
+    /// </summary>
+    Task DeleteSymbolAsync(string symbolName);
 }

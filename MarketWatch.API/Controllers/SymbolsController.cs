@@ -1,4 +1,5 @@
 ﻿using MarketWatch.Application.UseCases;
+using MarketWatch.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketWatch.API.Controllers
@@ -47,13 +48,13 @@ namespace MarketWatch.API.Controllers
         /// <summary>
         /// Method to add a symbol to the market watch list.
         /// </summary>
-        /// <param name="name">Symbol to add</param>
+        /// <param name="symbolName">Symbol to add</param>
         [HttpPost("market-watch")]
-        public async Task<IActionResult> AddSymbol([FromBody] string name)
+        public async Task<IActionResult> AddSymbol([FromBody] string symbolName)
         {
             try
             {
-                await service.AddSymbolAsync(name);
+                await service.AddSymbolAsync(symbolName);
                 return Ok();
             }
             catch (Exception ex)
@@ -62,6 +63,26 @@ namespace MarketWatch.API.Controllers
                 return StatusCode(500, new { message = "An error occurred while adding the symbol.", detail = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Method to delete a symbol from the market watch list.
+        /// </summary>
+        /// <param name = "symbolName" > Symbol to delete</param>
+        [HttpDelete("market-watch")]
+        public async Task<IActionResult> DeleteSymbol([FromBody] string symbolName)
+        {
+            try
+            {
+                await service.DeleteSymbolAsync(symbolName);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while deleting the symbol.", detail = ex.Message });
+            }
+        }
+
+
     }
 
- }
+}

@@ -18,6 +18,13 @@ public class SymbolService(ISymbolRepository repository)
 
     /// <summary>
     /// Method to add a symbol to the database.
+    /// param name="symbolName">Symbol name to add</param>
     /// </summary>
-    public Task AddSymbolAsync(string name) => repository.AddSymbolAsync(name);
+    public Task AddSymbolAsync(string symbolName) => repository.AddSymbolAsync(symbolName);
+
+    /// <summary>
+    /// Method to delete a symbol to the database.
+    /// param name="symbolName">Symbol name to delete</param>
+    /// </summary>
+    public Task DeleteSymbolAsync(string symbolName)  => repository.DeleteSymbolAsync(symbolName);
 }

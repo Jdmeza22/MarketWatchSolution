@@ -22,13 +22,29 @@ public class SymbolRepository(MarketWatchDbContext context, BinanceSymbolService
 
     /// <summary>
     /// Method to add a symbol to the database.
+    /// param name="symbolName">Symbol name to add</param>
     /// </summary>
-    public async Task AddSymbolAsync(string name)
+    public async Task AddSymbolAsync(string symbolName)
     {
-        if (!await context.Symbols.AnyAsync(s => s.Name == name))
+        if (!await context.Symbols.AnyAsync(s => s.Name == symbolName))
         {
-            context.Symbols.Add(new Symbol { Name = name });
+            context.Symbols.Add(new Symbol { Name = symbolName });
             await context.SaveChangesAsync();
         }
     }
+
+    /// <summary>
+    /// Method to delete a symbol to the database.
+    /// param name="symbolName">Symbol name to add</param>
+    /// </summary>
+    public async Task DeleteSymbolAsync(string symbolName)
+    {
+        var symbol = await context.Symbols.FirstOrDefaultAsync(s => s.Name == symbolName);
+        if (symbol != null)
+        {
+            context.Symbols.Remove(symbol);
+            await context.SaveChangesAsync();
+        }
+    }
+
 }
